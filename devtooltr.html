@@ -1,0 +1,2293 @@
+```html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DevToolTR - AI Developer Tool Advisor</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+        nav {
+            height: 70px;
+            display: flex;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            border-bottom: 1px solid #263449;
+            background: #111c30;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .logo span {
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #38bdf8;
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 100px 20px 80px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #172554;
+            color: #38bdf8;
+            border: 1px solid #1e40af;
+            padding: 8px 16px;
+            border-radius: 30px;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            color: #38bdf8;
+        }
+
+        .hero p {
+            color: #94a3b8;
+            font-size: 20px;
+            max-width: 700px;
+            margin: auto;
+            line-height: 1.6;
+        }
+
+        /* BUTTONS */
+        .buttons {
+            margin-top: 35px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        button {
+            border: none;
+            padding: 14px 25px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .primary {
+            background: #38bdf8;
+            color: #082f49;
+        }
+
+        .primary:hover {
+            background: #7dd3fc;
+        }
+
+        .secondary {
+            background: #1e293b;
+            color: white;
+            border: 1px solid #334155;
+        }
+
+        .secondary:hover {
+            background: #334155;
+        }
+
+        /* FEATURES */
+        .features {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px 20px 80px;
+        }
+
+        .features h2 {
+            text-align: center;
+            margin-bottom: 35px;
+            font-size: 30px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: #111c30;
+            border: 1px solid #263449;
+            border-radius: 15px;
+            padding: 30px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #38bdf8;
+        }
+
+        .card-icon {
+            font-size: 35px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* KARŞILAŞTIRMA */
+
+        .comparison-box {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .comparison-card {
+            background: #111c30;
+            border: 1px solid #263449;
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .comparison-card:hover {
+            border-color: #38bdf8;
+        }
+
+        .comparison-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .comparison-card p {
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .comparison-score {
+            padding: 10px 0;
+            border-bottom: 1px solid #263449;
+            color: #cbd5e1;
+        }
+
+        .comparison-score b {
+            color: #38bdf8;
+        }
+
+        .comparison-vs {
+            font-size: 22px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        @media (max-width: 700px) {
+
+            .comparison-box {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-vs {
+                text-align: center;
+            }
+
+        }
+
+        /* ARAÇLAR */
+        .tools-section {
+            max-width: 1100px;
+            margin: auto;
+            padding: 50px 20px 90px;
+        }
+
+        .tools-header {
+            margin-bottom: 25px;
+        }
+
+        .tools-header h2 {
+            font-size: 32px;
+            margin: 15px 0 10px;
+        }
+
+        .tools-header p {
+            color: #94a3b8;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .tool-card {
+            background: #111c30;
+            border: 1px solid #263449;
+            border-radius: 15px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            border-color: #38bdf8;
+        }
+
+        .tool-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .tool-icon {
+            font-size: 32px;
+        }
+
+        .rating {
+            color: #facc15;
+            font-size: 14px;
+        }
+
+        .tool-card h3 {
+            font-size: 23px;
+            margin-bottom: 8px;
+        }
+
+        .category {
+            display: inline-block;
+            background: #172554;
+            color: #38bdf8;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .tool-card p {
+            color: #94a3b8;
+            line-height: 1.5;
+            min-height: 70px;
+        }
+
+        .scores {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 20px 0;
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+
+        .tool-button {
+            width: 100%;
+            background: #1e293b;
+            color: white;
+            border: 1px solid #334155;
+            padding: 11px;
+            border-radius: 8px;
+        }
+
+        .tool-button:hover {
+            background: #38bdf8;
+            color: #082f49;
+        }
+
+        /* ARAMA */
+        .search-area {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .search-area input,
+        .search-area select {
+            background: #111c30;
+            color: white;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 15px;
+        }
+
+        .search-area input {
+            flex: 1;
+        }
+
+        .search-area select {
+            width: 220px;
+        }
+
+        .search-area input:focus,
+        .search-area select:focus {
+            outline: none;
+            border-color: #38bdf8;
+        }
+
+        /* AI ADVISOR */
+        .advisor-section {
+            max-width: 900px;
+            margin: auto;
+            padding: 80px 20px;
+        }
+
+        .advisor-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .advisor-title h2 {
+            font-size: 32px;
+            margin: 15px 0;
+        }
+
+        .advisor-title p {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        .advisor-box {
+            background: #111c30;
+            border: 1px solid #263449;
+            border-radius: 18px;
+            padding: 30px;
+        }
+
+        .advisor-box label {
+            display: block;
+            margin-bottom: 10px;
+            color: #cbd5e1;
+            font-weight: bold;
+        }
+
+        .advisor-box textarea {
+            width: 100%;
+            min-height: 120px;
+            resize: vertical;
+            background: #0f172a;
+            color: white;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 15px;
+            font-family: Arial, sans-serif;
+            margin-bottom: 25px;
+        }
+
+        .advisor-box textarea:focus {
+            outline: none;
+            border-color: #38bdf8;
+        }
+
+        .advisor-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .advisor-options select {
+            width: 100%;
+            background: #0f172a;
+            color: white;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 13px;
+        }
+
+        .advisor-button {
+            width: 100%;
+            margin-top: 25px;
+            background: #38bdf8;
+            color: #082f49;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .advisor-button:hover {
+            background: #7dd3fc;
+        }
+
+        .recommendation-result {
+            margin-top: 25px;
+        }
+
+        .recommendation-card {
+            background: #111c30;
+            border: 1px solid #38bdf8;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .recommendation-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .recommendation-card p {
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        .recommendation-score {
+            color: #38bdf8;
+            font-weight: bold;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid #263449;
+            color: #64748b;
+        }
+
+        /* MOBİL */
+        @media (max-width: 800px) {
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .search-area {
+                flex-direction: column;
+            }
+
+            .search-area select {
+                width: 100%;
+            }
+
+            .advisor-options {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        /* SKOR ÇUBUKLARI */
+
+        .score-item {
+            margin-bottom: 12px;
+        }
+
+        .score-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+
+        .score-bar {
+            width: 100%;
+            height: 7px;
+            background: #1e293b;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: #38bdf8;
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+
+        <div class="logo">
+            DevTool<span>TR</span>
+        </div>
+
+        <div class="nav-links">
+             <a href="#">Ana Sayfa</a>
+             <a href="#araclar">Araçlar</a>
+             <a href="#karsilastirma">Karşılaştır</a>
+             <a href="#ai-advisor">AI Advisor</a>
+             <a href="#yorumlar">Yorumlar</a>
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="badge">
+            🇹🇷 Türkiye'nin Developer Tool Rehberi
+        </div>
+
+        <h1>
+            Doğru aracı,
+            <span>doğru proje</span>
+            için seç.
+        </h1>
+
+        <p>
+            Web geliştirme, yapay zeka, veri analizi ve üniversite
+            projelerin için en uygun yazılım araçlarını keşfet.
+        </p>
+
+        <div class="buttons">
+
+            <button
+                class="primary"
+                onclick="document.getElementById('araclar').scrollIntoView({behavior: 'smooth'})"
+            >
+                🔍 Araçları Keşfet
+            </button>
+
+            <button
+                class="secondary"
+                onclick="document.getElementById('ai-advisor').scrollIntoView({behavior: 'smooth'})"
+            >
+                🤖 AI Advisor
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+    <section class="features">
+
+        <h2>Neden DevToolTR?</h2>
+
+        <div class="cards">
+
+            <div class="card">
+
+                <div class="card-icon">⭐</div>
+
+                <h3>Gerçek Değerlendirmeler</h3>
+
+                <p>
+                    Geliştirici araçlarını öğrenme kolaylığı,
+                    performans ve kullanım alanlarına göre karşılaştır.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">🎓</div>
+
+                <h3>Öğrenci Skoru</h3>
+
+                <p>
+                    Üniversite öğrencileri için hangi aracın
+                    daha kolay ve uygun olduğunu keşfet.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">🤖</div>
+
+                <h3>AI Advisor</h3>
+
+                <p>
+                    Projeni ve seviyeni belirt.
+                    DevToolTR sana en uygun araçları önersin.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ARAÇLAR -->
+    <section class="tools-section" id="araclar">
+
+        <div class="tools-header">
+
+            <div class="badge">
+                🛠️ Developer Tools
+            </div>
+
+            <h2>Popüler Geliştirici Araçları</h2>
+
+            <p>
+                İhtiyacına uygun teknolojiyi keşfet ve karşılaştır.
+            </p>
+
+        </div>
+
+
+        <!-- ARAMA -->
+        <div class="search-area">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="🔍 Araç ara... Örn: Python, React, Database"
+            >
+
+            <select id="categoryFilter">
+
+                <option value="all">
+                    Tüm Kategoriler
+                </option>
+
+                <option value="Backend">
+                    Backend
+                </option>
+
+                <option value="Frontend">
+                    Frontend
+                </option>
+
+                <option value="Database">
+                    Database
+                </option>
+
+                <option value="Python / AI">
+                    Python / AI
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="tools-grid">
+
+            <div class="tool-card">
+
+                <div class="tool-top">
+                    <span class="tool-icon">🐍</span>
+                    <span class="rating" id="rating-Flask">⭐ 4.7</span>
+                </div>
+
+                <h3>Flask</h3>
+
+                <span class="category">
+                    Backend
+                </span>
+
+                <p>
+                    Python ile hızlı ve sade web uygulamaları geliştirmek
+                    için hafif bir framework.
+                </p>
+
+                <div class="scores">
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🎓 Öğrenci</span>
+                            <b>10/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:100%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🇹🇷 Türkiye</span>
+                            <b>9/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:90%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="tool-button"
+                    onclick="showToolDetails('Flask')"
+                >
+                    Detayları Gör
+                </button>
+
+            </div>
+
+
+            <div class="tool-card">
+
+                <div class="tool-top">
+                    <span class="tool-icon">⚡</span>
+                    <span class="rating" id="rating-FastAPI">⭐ 4.8</span>
+                </div>
+
+                <h3>FastAPI</h3>
+
+                <span class="category">
+                    Backend
+                </span>
+
+                <p>
+                    Modern ve yüksek performanslı Python API geliştirme
+                    framework'ü.
+                </p>
+
+                <div class="scores">
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🎓 Öğrenci</span>
+                            <b>8/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:80%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🇹🇷 Türkiye</span>
+                            <b>9/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:90%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="tool-button"
+                    onclick="showToolDetails('FastAPI')"
+                >
+                    Detayları Gör
+                </button>
+
+            </div>
+
+
+            <div class="tool-card">
+
+                <div class="tool-top">
+                    <span class="tool-icon">🌐</span>
+                    <span class="rating" id="rating-Django">⭐ 4.6</span>
+                </div>
+
+                <h3>Django</h3>
+
+                <span class="category">
+                    Backend
+                </span>
+
+                <p>
+                    Büyük ve kapsamlı web uygulamaları geliştirmek için
+                    güçlü Python framework'ü.
+                </p>
+
+                <div class="scores">
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🎓 Öğrenci</span>
+                            <b>9/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:90%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🇹🇷 Türkiye</span>
+                            <b>9/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:90%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="tool-button"
+                    onclick="showToolDetails('Django')"
+                >
+                    Detayları Gör
+                </button>
+
+            </div>
+
+
+            <div class="tool-card">
+
+                <div class="tool-top">
+                    <span class="tool-icon">⚛️</span>
+                    <span class="rating" id="rating-React">⭐ 4.8</span>
+                </div>
+
+                <h3>React</h3>
+
+                <span class="category">
+                    Frontend
+                </span>
+
+                <p>
+                    Etkileşimli ve modern kullanıcı arayüzleri geliştirmek
+                    için popüler JavaScript kütüphanesi.
+                </p>
+
+                <div class="scores">
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🎓 Öğrenci</span>
+                            <b>9/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:90%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🇹🇷 Türkiye</span>
+                            <b>10/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:100%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="tool-button"
+                    onclick="showToolDetails('React')"
+                >
+                    Detayları Gör
+                </button>
+
+            </div>
+
+
+            <div class="tool-card">
+
+                <div class="tool-top">
+                    <span class="tool-icon">💚</span>
+                    <span class="rating" id="rating-Vue">⭐ 4.7</span>
+                </div>
+
+                <h3>Vue</h3>
+
+                <span class="category">
+                    Frontend
+                </span>
+
+                <p>
+                    Öğrenmesi kolay ve esnek bir JavaScript frontend
+                    framework'ü.
+                </p>
+
+                <div class="scores">
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🎓 Öğrenci</span>
+                            <b>9/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:90%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🇹🇷 Türkiye</span>
+                            <b>9/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:90%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="tool-button"
+                    onclick="showToolDetails('Vue')"
+                >
+                    Detayları Gör
+                </button>
+
+            </div>
+
+
+            <div class="tool-card">
+
+                <div class="tool-top">
+                    <span class="tool-icon">🐘</span>
+                    <span class="rating" id="rating-PostgreSQL">⭐ 4.9</span>
+                </div>
+
+                <h3>PostgreSQL</h3>
+
+                <span class="category">
+                    Database
+                </span>
+
+                <p>
+                    Güçlü, güvenilir ve açık kaynaklı ilişkisel veritabanı
+                    yönetim sistemi.
+                </p>
+
+                <div class="scores">
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🎓 Öğrenci</span>
+                            <b>9/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:90%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🇹🇷 Türkiye</span>
+                            <b>10/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:100%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="tool-button"
+                    onclick="showToolDetails('PostgreSQL')"
+                >
+                    Detayları Gör
+                </button>
+
+            </div>
+
+
+            <div class="tool-card">
+
+                <div class="tool-top">
+                    <span class="tool-icon">🍃</span>
+                    <span class="rating" id="rating-MongoDB">⭐ 4.5</span>
+                </div>
+
+                <h3>MongoDB</h3>
+
+                <span class="category">
+                    Database
+                </span>
+
+                <p>
+                    Esnek veri yapısına sahip, doküman tabanlı NoSQL
+                    veritabanı.
+                </p>
+
+                <div class="scores">
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🎓 Öğrenci</span>
+                            <b>8/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:80%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🇹🇷 Türkiye</span>
+                            <b>9/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:90%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="tool-button"
+                    onclick="showToolDetails('MongoDB')"
+                >
+                    Detayları Gör
+                </button>
+
+            </div>
+
+
+            <div class="tool-card">
+
+                <div class="tool-top">
+                    <span class="tool-icon">⚡</span>
+                    <span class="rating" id="rating-Supabase">⭐ 4.6</span>
+                </div>
+
+                <h3>Supabase</h3>
+
+                <span class="category">
+                    Backend
+                </span>
+
+                <p>
+                    PostgreSQL tabanlı, hızlı backend ve veritabanı
+                    geliştirme platformu.
+                </p>
+
+                <div class="scores">
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🎓 Öğrenci</span>
+                            <b>10/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:100%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🇹🇷 Türkiye</span>
+                            <b>9/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:90%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="tool-button"
+                    onclick="showToolDetails('Supabase')"
+                >
+                    Detayları Gör
+                </button>
+
+            </div>
+
+
+            <div class="tool-card">
+
+                <div class="tool-top">
+                    <span class="tool-icon">🔥</span>
+                    <span class="rating" id="rating-Firebase">⭐ 4.5</span>
+                </div>
+
+                <h3>Firebase</h3>
+
+                <span class="category">
+                    Backend
+                </span>
+
+                <p>
+                    Web ve mobil uygulamalar için Google tarafından sunulan
+                    backend platformu.
+                </p>
+
+                <div class="scores">
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🎓 Öğrenci</span>
+                            <b>9/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:90%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🇹🇷 Türkiye</span>
+                            <b>9/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:90%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="tool-button"
+                    onclick="showToolDetails('Firebase')"
+                >
+                    Detayları Gör
+                </button>
+
+            </div>
+
+
+            <div class="tool-card">
+
+                <div class="tool-top">
+                    <span class="tool-icon">📊</span>
+                    <span class="rating" id="rating-Streamlit">⭐ 4.6</span>
+                </div>
+
+                <h3>Streamlit</h3>
+
+                <span class="category">
+                    Python / AI
+                </span>
+
+                <p>
+                    Python kullanarak veri bilimi ve yapay zeka uygulamalarını
+                    hızlıca web uygulamasına dönüştürür.
+                </p>
+
+                <div class="scores">
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🎓 Öğrenci</span>
+                            <b>10/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:100%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                    <div class="score-item">
+
+                        <div class="score-label">
+                            <span>🇹🇷 Türkiye</span>
+                            <b>9/10</b>
+                        </div>
+
+                        <div class="score-bar">
+                            <div
+                                class="score-fill"
+                                style="width:90%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="tool-button"
+                    onclick="showToolDetails('Streamlit')"
+                >
+                    Detayları Gör
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- KARŞILAŞTIRMA -->
+    <section class="tools-section" id="karsilastirma">
+
+        <div class="tools-header">
+
+            <div class="badge">
+                ⚖️ Araç Karşılaştırma
+            </div>
+
+            <h2>Flask vs FastAPI</h2>
+
+            <p>
+                İki popüler Python backend aracını karşılaştır.
+            </p>
+
+        </div>
+
+        <div class="comparison-box">
+
+            <div class="comparison-card">
+
+                <h3>🐍 Flask</h3>
+
+                <p>
+                    Basit, esnek ve öğrenmesi kolay bir Python
+                    web framework'üdür.
+                </p>
+
+                <div class="comparison-score">
+                    🎓 Öğrenci: <b>10/10</b>
+                </div>
+
+                <div class="comparison-score">
+                    ⚡ Performans: <b>8/10</b>
+                </div>
+
+                <div class="comparison-score">
+                    📚 Öğrenme: <b>9/10</b>
+                </div>
+
+                <div class="comparison-score">
+                    🇹🇷 Türkiye: <b>9/10</b>
+                </div>
+
+            </div>
+
+
+            <div class="comparison-vs">
+                VS
+            </div>
+
+
+            <div class="comparison-card">
+
+                <h3>⚡ FastAPI</h3>
+
+                <p>
+                    Modern ve yüksek performanslı API geliştirmek
+                    için kullanılan Python framework'üdür.
+                </p>
+
+                <div class="comparison-score">
+                    🎓 Öğrenci: <b>8/10</b>
+                </div>
+
+                <div class="comparison-score">
+                    ⚡ Performans: <b>10/10</b>
+                </div>
+
+                <div class="comparison-score">
+                    📚 Öğrenme: <b>8/10</b>
+                </div>
+
+                <div class="comparison-score">
+                    🇹🇷 Türkiye: <b>9/10</b>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- KULLANICI DEĞERLENDİRMELERİ -->
+    <section class="tools-section" id="yorumlar">
+
+        <div class="tools-header">
+
+            <div class="badge">
+                ⭐ Kullanıcı Değerlendirmeleri
+            </div>
+
+            <h2>Developer Topluluğu Ne Diyor?</h2>
+
+            <p>
+                Kullandığın araç hakkında puan ver ve deneyimini paylaş.
+            </p>
+
+        </div>
+
+
+        <div class="advisor-box">
+
+            <label>
+                Araç seç
+            </label>
+
+            <select id="reviewTool">
+
+                <option value="Flask">Flask</option>
+                <option value="FastAPI">FastAPI</option>
+                <option value="Django">Django</option>
+                <option value="React">React</option>
+                <option value="Vue">Vue</option>
+                <option value="PostgreSQL">PostgreSQL</option>
+                <option value="MongoDB">MongoDB</option>
+                <option value="Supabase">Supabase</option>
+                <option value="Firebase">Firebase</option>
+                <option value="Streamlit">Streamlit</option>
+
+            </select>
+
+
+            <br><br>
+
+
+            <label>
+                Puanın
+            </label>
+
+            <select id="reviewRating">
+
+                <option value="5">⭐⭐⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="1">⭐</option>
+
+            </select>
+
+
+            <br><br>
+
+
+            <label>
+                Yorumun
+            </label>
+
+            <textarea
+                id="reviewText"
+                placeholder="Bu araç hakkında deneyimini yaz..."
+            ></textarea>
+
+
+            <button
+                class="advisor-button"
+                onclick="addReview()"
+            >
+                ⭐ Değerlendirme Gönder
+            </button>
+
+        </div>
+
+
+        <div id="reviewList" style="margin-top:30px;"></div>
+
+    </section>
+
+
+    <!-- AI ADVISOR -->
+    <section class="advisor-section" id="ai-advisor">
+
+        <div class="advisor-title">
+
+            <div class="badge">
+                🤖 AI Advisor
+            </div>
+
+            <h2>
+                Projen için en doğru aracı bul
+            </h2>
+
+            <p>
+                Projeni, seviyeni ve geliştirme alanını seç.
+                DevToolTR sana en uygun teknolojileri önersin.
+            </p>
+
+        </div>
+
+
+        <div class="advisor-box">
+
+            <label>
+                Ne yapmak istiyorsun?
+            </label>
+
+            <textarea
+                id="projectInput"
+                placeholder="Örn: Python ile üniversite için web uygulaması yapmak istiyorum..."
+            ></textarea>
+
+
+            <div class="advisor-options">
+
+                <div>
+
+                    <label>
+                        Seviyen
+                    </label>
+
+                    <select id="levelInput">
+
+                        <option value="beginner">
+                            Başlangıç
+                        </option>
+
+                        <option value="middle">
+                            Orta
+                        </option>
+
+                        <option value="advanced">
+                            İleri
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Proje türü
+                    </label>
+
+                    <select id="projectTypeInput">
+
+                        <option value="web">
+                            Web Uygulaması
+                        </option>
+
+                        <option value="university">
+                            Üniversite Projesi
+                        </option>
+
+                        <option value="ai">
+                            Yapay Zeka / Veri
+                        </option>
+
+                        <option value="database">
+                            Veritabanı
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="advisor-button"
+                onclick="getRecommendation()"
+            >
+                🤖 Bana Araç Öner
+            </button>
+
+        </div>
+
+
+        <div
+            id="recommendationResult"
+            class="recommendation-result"
+        ></div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        © 2026 DevToolTR — Developer Tool Advisor
+    </footer>
+
+
+    <script>
+
+        /* ARAÇ DETAYLARI */
+
+        const toolDetails = {
+
+            "Flask": {
+                icon: "🐍",
+                category: "Backend",
+                description:
+                    "Python ile web uygulamaları geliştirmek için kullanılan hafif ve esnek bir framework.",
+                student: "10/10",
+                turkey: "9/10",
+                bestFor:
+                    "Başlangıç seviyesindeki öğrenciler ve küçük-orta ölçekli web projeleri."
+            },
+
+            "FastAPI": {
+                icon: "⚡",
+                category: "Backend",
+                description:
+                    "Modern Python API'leri geliştirmek için yüksek performanslı bir framework.",
+                student: "8/10",
+                turkey: "9/10",
+                bestFor:
+                    "API, yapay zeka servisi ve yüksek performans gerektiren projeler."
+            },
+
+            "Django": {
+                icon: "🌐",
+                category: "Backend",
+                description:
+                    "Kapsamlı web uygulamaları geliştirmek için güçlü bir Python framework'ü.",
+                student: "9/10",
+                turkey: "9/10",
+                bestFor:
+                    "Büyük ve kapsamlı web uygulamaları."
+            },
+
+            "React": {
+                icon: "⚛️",
+                category: "Frontend",
+                description:
+                    "Modern ve etkileşimli kullanıcı arayüzleri geliştirmek için kullanılan JavaScript kütüphanesi.",
+                student: "9/10",
+                turkey: "10/10",
+                bestFor:
+                    "Modern web arayüzleri ve tek sayfa uygulamaları."
+            },
+
+            "Vue": {
+                icon: "💚",
+                category: "Frontend",
+                description:
+                    "Öğrenmesi kolay ve esnek bir frontend framework'üdür.",
+                student: "9/10",
+                turkey: "9/10",
+                bestFor:
+                    "Frontend geliştirmeye yeni başlayan öğrenciler."
+            },
+
+            "PostgreSQL": {
+                icon: "🐘",
+                category: "Database",
+                description:
+                    "Güçlü ve güvenilir açık kaynaklı ilişkisel veritabanı sistemidir.",
+                student: "9/10",
+                turkey: "10/10",
+                bestFor:
+                    "İlişkisel veritabanı gerektiren projeler."
+            },
+
+            "MongoDB": {
+                icon: "🍃",
+                category: "Database",
+                description:
+                    "Doküman tabanlı ve esnek bir NoSQL veritabanıdır.",
+                student: "8/10",
+                turkey: "9/10",
+                bestFor:
+                    "Esnek veri yapısına ihtiyaç duyan uygulamalar."
+            },
+
+            "Supabase": {
+                icon: "⚡",
+                category: "Backend",
+                description:
+                    "PostgreSQL tabanlı modern bir backend ve veritabanı platformudur.",
+                student: "10/10",
+                turkey: "9/10",
+                bestFor:
+                    "Backend geliştirmeyi hızlıca tamamlamak isteyen öğrenciler."
+            },
+
+            "Firebase": {
+                icon: "🔥",
+                category: "Backend",
+                description:
+                    "Web ve mobil uygulamalar için hızlı backend hizmetleri sunan bir platformdur.",
+                student: "9/10",
+                turkey: "9/10",
+                bestFor:
+                    "Hızlı prototipler ve mobil uygulamalar."
+            },
+
+            "Streamlit": {
+                icon: "📊",
+                category: "Python / AI",
+                description:
+                    "Python ile veri bilimi ve yapay zeka uygulamalarını hızlı şekilde web uygulamasına dönüştürür.",
+                student: "10/10",
+                turkey: "9/10",
+                bestFor:
+                    "Yapay zeka, veri analizi ve üniversite projeleri."
+            }
+
+        };
+
+
+        function showToolDetails(toolName) {
+
+            const tool = toolDetails[toolName];
+
+            if (!tool) {
+                return;
+            }
+
+            alert(
+                tool.icon + " " + toolName +
+                "\n\n" +
+                "Kategori: " + tool.category +
+                "\n\n" +
+                tool.description +
+                "\n\n" +
+                "🎓 Öğrenci Skoru: " + tool.student +
+                "\n" +
+                "🇹🇷 Türkiye Skoru: " + tool.turkey +
+                "\n\n" +
+                "💡 En uygun olduğu alan:\n" +
+                tool.bestFor
+            );
+
+        }
+
+
+        /* ARAMA VE FİLTRELEME */
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const categoryFilter =
+            document.getElementById("categoryFilter");
+
+        const toolCards =
+            document.querySelectorAll(".tool-card");
+
+
+        function filtrele() {
+
+            const arama =
+                searchInput.value.toLowerCase();
+
+            const kategori =
+                categoryFilter.value;
+
+
+            toolCards.forEach(card => {
+
+                const metin =
+                    card.innerText.toLowerCase();
+
+                const cardCategory =
+                    card.querySelector(".category").innerText;
+
+
+                const aramaUygun =
+                    metin.includes(arama);
+
+                const kategoriUygun =
+                    kategori === "all" ||
+                    cardCategory === kategori;
+
+
+                if (aramaUygun && kategoriUygun) {
+
+                    card.style.display = "block";
+
+                } else {
+
+                    card.style.display = "none";
+
+                }
+
+            });
+
+        }
+
+
+        searchInput.addEventListener(
+            "input",
+            filtrele
+        );
+
+        categoryFilter.addEventListener(
+            "change",
+            filtrele
+        );
+
+
+        /* AI ADVISOR */
+
+
+        function getRecommendation() {
+
+            const project =
+                document.getElementById("projectInput")
+                .value
+                .toLowerCase();
+
+            const level =
+                document.getElementById("levelInput")
+                .value;
+
+            const projectType =
+                document.getElementById("projectTypeInput")
+                .value;
+
+
+            let tools = [
+
+                {
+                    name: "Flask",
+                    score: 70,
+                    reason:
+                        "Öğrenmesi kolay ve üniversite projeleri için oldukça uygun."
+                },
+
+                {
+                    name: "FastAPI",
+                    score: 70,
+                    reason:
+                        "Hızlı ve modern API geliştirme için güçlü bir seçenek."
+                },
+
+                {
+                    name: "Django",
+                    score: 65,
+                    reason:
+                        "Kapsamlı web uygulamaları için güçlü bir framework."
+                },
+
+                {
+                    name: "React",
+                    score: 65,
+                    reason:
+                        "Modern ve etkileşimli frontend uygulamaları için uygun."
+                },
+
+                {
+                    name: "Vue",
+                    score: 65,
+                    reason:
+                        "Frontend geliştirmeye yeni başlayanlar için öğrenmesi kolay."
+                },
+
+                {
+                    name: "PostgreSQL",
+                    score: 65,
+                    reason:
+                        "İlişkisel ve güçlü veritabanı ihtiyaçları için uygun."
+                },
+
+                {
+                    name: "MongoDB",
+                    score: 60,
+                    reason:
+                        "Esnek ve doküman tabanlı veri yapısı için uygun."
+                },
+
+                {
+                    name: "Supabase",
+                    score: 65,
+                    reason:
+                        "Backend ve veritabanını hızlı şekilde kurmak için uygun."
+                },
+
+                {
+                    name: "Firebase",
+                    score: 60,
+                    reason:
+                        "Hızlı backend ve mobil/web prototipleri için uygun."
+                },
+
+                {
+                    name: "Streamlit",
+                    score: 70,
+                    reason:
+                        "Python, veri analizi ve yapay zeka projeleri için çok pratik."
+                }
+
+            ];
+
+
+            /* SEVİYE */
+
+            if (level === "beginner") {
+
+                tools.find(t => t.name === "Flask").score += 15;
+
+                tools.find(t => t.name === "Vue").score += 10;
+
+                tools.find(t => t.name === "Streamlit").score += 15;
+
+            }
+
+
+            if (level === "advanced") {
+
+                tools.find(t => t.name === "FastAPI").score += 15;
+
+                tools.find(t => t.name === "Django").score += 10;
+
+                tools.find(t => t.name === "PostgreSQL").score += 10;
+
+            }
+
+
+            /* PROJE TÜRÜ */
+
+            if (projectType === "web") {
+
+                tools.find(t => t.name === "Flask").score += 10;
+
+                tools.find(t => t.name === "FastAPI").score += 10;
+
+                tools.find(t => t.name === "React").score += 10;
+
+                tools.find(t => t.name === "Vue").score += 10;
+
+            }
+
+
+            if (projectType === "university") {
+
+                tools.find(t => t.name === "Flask").score += 15;
+
+                tools.find(t => t.name === "Streamlit").score += 15;
+
+                tools.find(t => t.name === "Supabase").score += 10;
+
+            }
+
+
+            if (projectType === "ai") {
+
+                tools.find(t => t.name === "Streamlit").score += 25;
+
+                tools.find(t => t.name === "FastAPI").score += 15;
+
+            }
+
+
+            if (projectType === "database") {
+
+                tools.find(t => t.name === "PostgreSQL").score += 25;
+
+                tools.find(t => t.name === "MongoDB").score += 20;
+
+                tools.find(t => t.name === "Supabase").score += 20;
+
+            }
+
+
+            /* KULLANICI METNİ */
+
+            if (project.includes("python")) {
+
+                tools.find(t => t.name === "Flask").score += 15;
+
+                tools.find(t => t.name === "FastAPI").score += 15;
+
+                tools.find(t => t.name === "Django").score += 10;
+
+                tools.find(t => t.name === "Streamlit").score += 15;
+
+            }
+
+
+            if (
+                project.includes("yapay zeka") ||
+                project.includes("ai") ||
+                project.includes("veri")
+            ) {
+
+                tools.find(t => t.name === "Streamlit").score += 20;
+
+            }
+
+
+            if (project.includes("mobil")) {
+
+                tools.find(t => t.name === "Firebase").score += 20;
+
+            }
+
+
+            /* PUANLARI SIRALA */
+
+            tools.sort(
+                (a, b) => b.score - a.score
+            );
+
+
+            const topTools =
+                tools.slice(0, 3);
+
+
+            /* SONUCU GÖSTER */
+
+            const result =
+                document.getElementById(
+                    "recommendationResult"
+                );
+
+
+            result.innerHTML = `
+
+                <h2 style="margin-bottom:20px;">
+                    🎯 Sana Önerdiklerimiz
+                </h2>
+
+                ${topTools.map((tool, index) => `
+
+                    <div class="recommendation-card">
+
+                        <h3>
+                            ${index + 1}. ${tool.name}
+                        </h3>
+
+                        <p>
+                            ${tool.reason}
+                        </p>
+
+                        <br>
+
+                        <span class="recommendation-score">
+                            Uygunluk Skoru:
+                            ${Math.min(tool.score, 100)}/100
+                        </span>
+
+                    </div>
+
+                `).join("")}
+
+            `;
+
+        }
+
+
+        /* KULLANICI DEĞERLENDİRMELERİ */
+
+        let reviews =
+            JSON.parse(localStorage.getItem("devtooltr_reviews")) || [];
+
+
+        function addReview() {
+
+            const tool =
+                document.getElementById("reviewTool").value;
+
+            const rating =
+                document.getElementById("reviewRating").value;
+
+            const text =
+                document.getElementById("reviewText").value.trim();
+
+
+            if (text === "") {
+
+                alert("Lütfen yorumunuzu yazın.");
+
+                return;
+            }
+
+
+            const review = {
+
+                tool: tool,
+                rating: rating,
+                text: text,
+                date: new Date().toLocaleDateString("tr-TR")
+
+            };
+
+
+            reviews.push(review);
+
+
+            localStorage.setItem(
+                "devtooltr_reviews",
+                JSON.stringify(reviews)
+            );
+
+
+            document.getElementById("reviewText").value = "";
+
+
+            yorumlariGoster();
+
+
+            alert("Değerlendirmeniz başarıyla eklendi.");
+        }
+
+
+        function yorumlariGoster() {
+
+            const reviewList =
+                document.getElementById("reviewList");
+
+
+            if (reviews.length === 0) {
+
+                reviewList.innerHTML = `
+                    <p style="color:#94a3b8;">
+                        Henüz değerlendirme bulunmuyor.
+                    </p>
+                `;
+
+                return;
+            }
+
+
+            reviewList.innerHTML = reviews
+                .slice()
+                .reverse()
+                .map(review => `
+
+                    <div class="recommendation-card">
+
+                        <h3>
+                            ${review.tool}
+                        </h3>
+
+                        <p>
+                            ${"⭐".repeat(Number(review.rating))}
+                        </p>
+
+                        <p>
+                            ${review.text}
+                        </p>
+
+                        <small style="color:#64748b;">
+                            ${review.date}
+                        </small>
+
+                    </div>
+
+                `)
+                .join("");
+        }
+
+
+        /* KULLANICI PUANLARINI ARAÇLARA YANSIT */
+
+        function puanlariGuncelle() {
+
+            const araclar = [
+                "Flask",
+                "FastAPI",
+                "Django",
+                "React",
+                "Vue",
+                "PostgreSQL",
+                "MongoDB",
+                "Supabase",
+                "Firebase",
+                "Streamlit"
+            ];
+
+
+            araclar.forEach(arac => {
+
+                const aracYorumlari =
+                    reviews.filter(
+                        review => review.tool === arac
+                    );
+
+
+                if (aracYorumlari.length === 0) {
+                    return;
+                }
+
+
+                const toplam =
+                    aracYorumlari.reduce(
+                        (sum, review) =>
+                            sum + Number(review.rating),
+                        0
+                    );
+
+
+                const ortalama =
+                    (toplam / aracYorumlari.length)
+                    .toFixed(1);
+
+
+                const ratingElement =
+                    document.getElementById(
+                        "rating-" + arac
+                    );
+
+
+                if (ratingElement) {
+
+                    ratingElement.innerText =
+                        "⭐ " + ortalama;
+
+                }
+
+            });
+
+        }
+
+
+        yorumlariGoster();
+        puanlariGuncelle();
+
+    </script>
+
+</body>
+</html>
+```
